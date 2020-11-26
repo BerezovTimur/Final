@@ -5,7 +5,6 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import ru.netology.web.data.DataHelper;
 
-import static com.codeborne.selenide.Condition.cssClass;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -26,18 +25,10 @@ public class OrderPage {
     private SelenideElement cardholderField = fields.get(3);
     private SelenideElement cvvField = $("[placeholder='999']");
 
-    private SelenideElement successMassage = $(byText("Операция одобрена Банком."));
-    private SelenideElement errorMassage = $(byText("Ошибка! Банк отказал в проведении операции."));
     private SelenideElement wrongFormatMassage = $(byText("Неверный формат"));
     private SelenideElement wrongFormatForMonthMassage = $(byText("Неверно указан срок действия карты"));
     private SelenideElement invalidCardMassage = $(byText("Истёк срок действия карты"));
     private SelenideElement cardholderNameMassage = $(byText("Поле обязательно для заполнения"));
-
-    //Notification
-    private SelenideElement notificationOkTitle = $(".notification_status_ok");
-    private SelenideElement notificationOkTitleVisible = $(".notification_status_ok.notification_visible");
-    private SelenideElement notificationErrorTitle = $(".notification_status_error");
-    private SelenideElement notificationErrorTitleVisible = $(".notification_status_error.notification_visible");
 
     public OrderPage() {
         open(paymentUrl);
@@ -53,21 +44,22 @@ public class OrderPage {
         continueButton.click();
     }
 
+    public void setCreditPayment(DataHelper.CardNumber info, String month, String year, String cardholder, String cvv) {
+        creditButton.click();
+        numberField.setValue(info.getCardNumber());
+        monthField.setValue(month);
+        yearField.setValue(year);
+        cardholderField.setValue(cardholder);
+        cvvField.setValue(cvv);
+        continueButton.click();
+    }
+
     public void successMessage() {
         $(byText("Операция одобрена Банком.")).waitUntil(Condition.visible, 15000);
     }
 
     public void errorMessage() {
         $(byText("Ошибка! Банк отказал в проведении операции.")).waitUntil(Condition.visible, 15000);
-    }
-
-    public void success() {
-        notificationOkTitle.waitUntil(visible, 20000);
-        notificationErrorTitle.shouldNotHave(cssClass("notification_visible"));
-    }
-    public void error() {
-        notificationErrorTitle.waitUntil(visible,20000);
-        notificationOkTitle.shouldNotHave(cssClass("notification_visible"));
     }
 
     public void wrongFormatMassage() {

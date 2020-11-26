@@ -2,17 +2,15 @@ package ru.netology.web.tests;
 
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
-import lombok.val;
 import org.junit.jupiter.api.*;
 import ru.netology.web.data.DataHelper;
-import ru.netology.web.data.SQLHelper;
 import ru.netology.web.pages.OrderPage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static ru.netology.web.data.SQLHelper.*;
 
-public class PayByCardTest {
+public class PayByCredit {
 
     @BeforeAll
     static void setUpAll() {
@@ -39,7 +37,7 @@ public class PayByCardTest {
             String year = DataHelper.getCurrentYear();
             String cardholder = DataHelper.getCardholder();
             String cvv = DataHelper.getCvv();
-            orderPage.setPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
+            orderPage.setCreditPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
             orderPage.successMessage();
         }
 
@@ -50,7 +48,7 @@ public class PayByCardTest {
             String year = DataHelper.getCurrentYear();
             String cardholder = DataHelper.getCardholder();
             String cvv = DataHelper.getCvv();
-            orderPage.setPayment(DataHelper.getDeclinedCard(), month, year, cardholder, cvv);
+            orderPage.setCreditPayment(DataHelper.getDeclinedCard(), month, year, cardholder, cvv);
             orderPage.errorMessage();
         }
 
@@ -61,20 +59,21 @@ public class PayByCardTest {
             String year = DataHelper.getCurrentYear();
             String cardholder = DataHelper.getCardholder();
             String cvv = DataHelper.getCvv();
-            orderPage.setPayment(DataHelper.getAnotherBankCard(), month, year, cardholder, cvv);
-            orderPage.successMessage();
+            orderPage.setCreditPayment(DataHelper.getAnotherBankCard(), month, year, cardholder, cvv);
+            orderPage.errorMessage();
         }
 
         @Test
-        void shouldCheckStatus() {
+        void shouldWriteToDataBaseApprovedPaymentByDebitCard() throws InterruptedException {
             OrderPage orderPage = new OrderPage();
             String month = DataHelper.getCurrentMonth();
             String year = DataHelper.getCurrentYear();
             String cardholder = DataHelper.getCardholder();
             String cvv = DataHelper.getCvv();
-            orderPage.setPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
-            val status = SQLHelper.getStatusPayment();
-            assertEquals("APPROVED", status);
+            orderPage.setCreditPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
+            Thread.sleep(15000);
+            assertEquals("APPROVED", searchOperationStatusByCreditCard());
+            assertNotNull(searchOperationByOrderTableForCreditCard());
         }
     }
 
@@ -89,7 +88,7 @@ public class PayByCardTest {
             String year = DataHelper.getCurrentYear();
             String cardholder = DataHelper.getCardholder();
             String cvv = DataHelper.getCvv();
-            orderPage.setPayment(DataHelper.getSmallNumberCard(), month, year, cardholder, cvv);
+            orderPage.setCreditPayment(DataHelper.getSmallNumberCard(), month, year, cardholder, cvv);
             orderPage.wrongFormatMassage();
         }
 
@@ -101,7 +100,7 @@ public class PayByCardTest {
             String year = DataHelper.getCurrentYear();
             String cardholder = DataHelper.getCardholder();
             String cvv = DataHelper.getCvv();
-            orderPage.setPayment(DataHelper.getCardWithoutNumber(), month, year, cardholder, cvv);
+            orderPage.setCreditPayment(DataHelper.getCardWithoutNumber(), month, year, cardholder, cvv);
             orderPage.wrongFormatMassage();
         }
 
@@ -113,7 +112,7 @@ public class PayByCardTest {
             String year = DataHelper.getCurrentYear();
             String cardholder = DataHelper.getCardholder();
             String cvv = DataHelper.getCvv();
-            orderPage.setPayment(DataHelper.getNotDigitalNumber(), month, year, cardholder, cvv);
+            orderPage.setCreditPayment(DataHelper.getNotDigitalNumber(), month, year, cardholder, cvv);
             orderPage.wrongFormatMassage();
         }
     }
@@ -128,7 +127,7 @@ public class PayByCardTest {
             String year = DataHelper.getCurrentYear();
             String cardholder = DataHelper.getCardholder();
             String cvv = DataHelper.getCvv();
-            orderPage.setPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
+            orderPage.setCreditPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
             orderPage.wrongFormatMassage();
         }
 
@@ -139,7 +138,7 @@ public class PayByCardTest {
             String year = DataHelper.getCurrentYear();
             String cardholder = DataHelper.getCardholder();
             String cvv = DataHelper.getCvv();
-            orderPage.setPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
+            orderPage.setCreditPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
             orderPage.wrongFormatForMonthMassage();
         }
 
@@ -150,7 +149,7 @@ public class PayByCardTest {
             String year = DataHelper.getCurrentYear();
             String cardholder = DataHelper.getCardholder();
             String cvv = DataHelper.getCvv();
-            orderPage.setPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
+            orderPage.setCreditPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
             orderPage.wrongFormatForMonthMassage();
         }
 
@@ -161,7 +160,7 @@ public class PayByCardTest {
             String year = DataHelper.getCurrentYear();
             String cardholder = DataHelper.getCardholder();
             String cvv = DataHelper.getCvv();
-            orderPage.setPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
+            orderPage.setCreditPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
             orderPage.wrongFormatForMonthMassage();
         }
     }
@@ -176,7 +175,7 @@ public class PayByCardTest {
             String year = DataHelper.getNoYear();
             String cardholder = DataHelper.getCardholder();
             String cvv = DataHelper.getCvv();
-            orderPage.setPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
+            orderPage.setCreditPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
             orderPage.wrongFormatMassage();
         }
 
@@ -187,7 +186,7 @@ public class PayByCardTest {
             String year = DataHelper.getNullYear();
             String cardholder = DataHelper.getCardholder();
             String cvv = DataHelper.getCvv();
-            orderPage.setPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
+            orderPage.setCreditPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
             orderPage.invalidCardMassage();
         }
 
@@ -198,7 +197,7 @@ public class PayByCardTest {
             String year = DataHelper.getLastYear();
             String cardholder = DataHelper.getCardholder();
             String cvv = DataHelper.getCvv();
-            orderPage.setPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
+            orderPage.setCreditPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
             orderPage.invalidCardMassage();
         }
 
@@ -209,7 +208,7 @@ public class PayByCardTest {
             String year = DataHelper.getMaxValidDate();
             String cardholder = DataHelper.getCardholder();
             String cvv = DataHelper.getCvv();
-            orderPage.setPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
+            orderPage.setCreditPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
             orderPage.wrongFormatForMonthMassage();
         }
     }
@@ -224,7 +223,7 @@ public class PayByCardTest {
             String year = DataHelper.getCurrentYear();
             String cardholder = DataHelper.getCardholder();
             String cvv = DataHelper.getNoCvv();
-            orderPage.setPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
+            orderPage.setCreditPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
             orderPage.wrongFormatMassage();
         }
 
@@ -235,7 +234,7 @@ public class PayByCardTest {
             String year = DataHelper.getCurrentYear();
             String cardholder = DataHelper.getCardholder();
             String cvv = DataHelper.getWrongCvv();
-            orderPage.setPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
+            orderPage.setCreditPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
             orderPage.wrongFormatMassage();
         }
     }
@@ -250,7 +249,7 @@ public class PayByCardTest {
             String year = DataHelper.getCurrentYear();
             String cardholder = DataHelper.getNoCardholder();
             String cvv = DataHelper.getCvv();
-            orderPage.setPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
+            orderPage.setCreditPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
             orderPage.cardholderNameMassage();
         }
 
@@ -261,7 +260,7 @@ public class PayByCardTest {
             String year = DataHelper.getCurrentYear();
             String cardholder = DataHelper.getCardholderRussianLatter();
             String cvv = DataHelper.getCvv();
-            orderPage.setPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
+            orderPage.setCreditPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
             orderPage.cardholderNameMassage();
         }
 
@@ -272,7 +271,7 @@ public class PayByCardTest {
             String year = DataHelper.getCurrentYear();
             String cardholder = DataHelper.getOnlyNameCardholder();
             String cvv = DataHelper.getCvv();
-            orderPage.setPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
+            orderPage.setCreditPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
             orderPage.cardholderNameMassage();
         }
     }

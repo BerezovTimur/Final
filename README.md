@@ -22,8 +22,7 @@
     `docker-compose exec mysql mysql -u app -p app -v`.
     Ввести пароль `pass`
 3. Запускаем симулятор банковских сервисов:
-    - переходим в папку симулятора командой: cd gate-simulator
-    - запускаем симулятор командой: npm start
+    - cd gate-simulator && npm start
 4. Запускаем приложение командой: java -jar artifacts/aqa-shop.jar
 5. Запускаем тесты: gradlew clean test
 6. Для повторного использования тестов необходимо перезапустить SUT

@@ -2,9 +2,6 @@ version: '3.7'
 services:
   mysql:
     image: mysql:8.0.21
-    command: --innodb_use_native_aio=0
-    security_opt:
-      - seccomp:unconfined
     ports:
       - '3306:3306'
     volumes:

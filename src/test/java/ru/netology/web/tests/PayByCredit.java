@@ -63,7 +63,7 @@ public class PayByCredit {
             orderPage.errorMessage();
         }
 
-        @Test
+        /*@Test
         void shouldWriteToDataBaseApprovedPaymentByDebitCard() throws InterruptedException {
             OrderPage orderPage = new OrderPage();
             String month = DataHelper.getCurrentMonth();
@@ -74,7 +74,7 @@ public class PayByCredit {
             Thread.sleep(15000);
             assertEquals("APPROVED", searchOperationStatusByCreditCard());
             assertNotNull(searchOperationByOrderTableForCreditCard());
-        }
+        }*/
     }
 
     @Nested

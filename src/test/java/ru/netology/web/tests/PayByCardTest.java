@@ -64,18 +64,6 @@ public class PayByCardTest {
             orderPage.setPayment(DataHelper.getAnotherBankCard(), month, year, cardholder, cvv);
             orderPage.successMessage();
         }
-
-        @Test
-        void shouldCheckStatus() {
-            OrderPage orderPage = new OrderPage();
-            String month = DataHelper.getCurrentMonth();
-            String year = DataHelper.getCurrentYear();
-            String cardholder = DataHelper.getCardholder();
-            String cvv = DataHelper.getCvv();
-            orderPage.setPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
-            val status = SQLHelper.getStatusPayment();
-            assertEquals("APPROVED", status);
-        }
     }
 
     @Nested

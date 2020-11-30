@@ -17,7 +17,10 @@
 
 1. Переключится на ветку master командой:
     git checkout master
-2. Запустить контейнеры Docker командой: docker-compose up
+2. Запустить контейнеры Docker командой: `docker-compose up`
+3. Подключить БД командой:
+    `docker-compose exec mysql mysql -u app -p app -v`.
+    Ввести пароль `pass`
 3. Запускаем симулятор банковских сервисов:
     - переходим в папку симулятора командой: cd gate-simulator
     - запускаем симулятор командой: npm start

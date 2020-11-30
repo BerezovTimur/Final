@@ -10,9 +10,11 @@
 4. Google Chrome
 
 <h3>Начало работы</h3>
+
 Скопировать проект через GIT на свой ПК командой: git clone https://github.com/BerezovTimur/Final.git
 
 <h3>Установка и запуск сборки на MySQL</h3>
+
 1. Переключится на ветку master командой:
     git checkout master
 2. Запустить контейнеры Docker командой: docker-compose up
@@ -24,6 +26,7 @@
 6. Для повторного использования тестов необходимо перезапустить SUT
 
 <h3>Установка и запуск сборки на PostgreSQL</h3>
+
 1. Переключится на ветку postgre командой:
     git checkout postgre
 2. Запустить контейнеры Docker командой: docker-compose up

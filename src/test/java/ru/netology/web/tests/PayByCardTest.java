@@ -9,14 +9,18 @@ import ru.netology.web.data.SQLHelper;
 import ru.netology.web.pages.OrderPage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static ru.netology.web.data.SQLHelper.*;
+import static ru.netology.web.data.SQLHelper.cleanData;
 
 public class PayByCardTest {
 
     @BeforeAll
     static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+
+    @BeforeAll
+    static void setup() {
+        cleanData();
     }
 
     @AfterAll
@@ -41,6 +45,8 @@ public class PayByCardTest {
             String cvv = DataHelper.getCvv();
             orderPage.setPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
             orderPage.successMessage();
+            val status = SQLHelper.getStatusPayment();
+            assertEquals("APPROVED", status);
         }
 
         @Test
@@ -52,6 +58,8 @@ public class PayByCardTest {
             String cvv = DataHelper.getCvv();
             orderPage.setPayment(DataHelper.getDeclinedCard(), month, year, cardholder, cvv);
             orderPage.errorMessage();
+            val status = SQLHelper.getStatusPayment();
+            assertEquals("DECLINED", status);
         }
 
         @Test
@@ -63,11 +71,13 @@ public class PayByCardTest {
             String cvv = DataHelper.getCvv();
             orderPage.setPayment(DataHelper.getAnotherBankCard(), month, year, cardholder, cvv);
             orderPage.successMessage();
+            val status = SQLHelper.getStatusPayment();
+            assertEquals("APPROVED", status);
         }
     }
 
     @Nested
-    public class NegativeTestsByNumberCard {
+    public class TestsByNumberCard {
 
         @Test
         void shouldNotPayIfShortNumber() {
@@ -107,7 +117,7 @@ public class PayByCardTest {
     }
 
     @Nested
-    public class NegativeTestsByMonth {
+    public class TestsByMonth {
 
         @Test
         void shouldNotPayIfNoMonth() {
@@ -155,7 +165,7 @@ public class PayByCardTest {
     }
 
     @Nested
-    public class NegativeTestsByYear {
+    public class TestsByYear {
 
         @Test
         void shouldNotPayIfNoYear() {
@@ -203,7 +213,7 @@ public class PayByCardTest {
     }
 
     @Nested
-    public class NegativeTestsByCVV {
+    public class TestsByCVV {
 
         @Test
         void shouldNotPayIfNoCVV() {
@@ -229,7 +239,7 @@ public class PayByCardTest {
     }
 
     @Nested
-    public class NegativeTestsByCardholder {
+    public class TestsByCardholder {
 
         @Test
         void shouldNotPayIfNoName() {
@@ -259,6 +269,17 @@ public class PayByCardTest {
             String month = DataHelper.getCurrentMonth();
             String year = DataHelper.getCurrentYear();
             String cardholder = DataHelper.getOnlyNameCardholder();
+            String cvv = DataHelper.getCvv();
+            orderPage.setPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
+            orderPage.cardholderNameMassage();
+        }
+
+        @Test
+        void shouldNotPayIfWrongSymbolName() {
+            OrderPage orderPage = new OrderPage();
+            String month = DataHelper.getCurrentMonth();
+            String year = DataHelper.getCurrentYear();
+            String cardholder = DataHelper.getWrongSymbolName();
             String cvv = DataHelper.getCvv();
             orderPage.setPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
             orderPage.cardholderNameMassage();

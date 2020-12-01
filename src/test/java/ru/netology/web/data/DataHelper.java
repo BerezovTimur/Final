@@ -112,6 +112,10 @@ public class DataHelper {
         return "";
     }
 
+    public static String getWrongSymbolName() {
+        return "!\"№;%1";
+    }
+
     //Данные для тестов по CVV
 
     public static String getCvv() {

@@ -54,27 +54,27 @@ public class OrderPage {
         continueButton.click();
     }
 
-    public void successMessage() {
+    public void getSuccessMessage() {
         $(byText("Операция одобрена Банком.")).waitUntil(Condition.visible, 15000);
     }
 
-    public void errorMessage() {
+    public void getErrorMessage() {
         $(byText("Ошибка! Банк отказал в проведении операции.")).waitUntil(Condition.visible, 15000);
     }
 
-    public void wrongFormatMassage() {
+    public void waitWrongFormatMassage() {
         wrongFormatMassage.waitUntil(visible, 15000);
     }
 
-    public void wrongFormatForMonthMassage() {
+    public void waitWrongFormatForMonthMassage() {
         wrongFormatForMonthMassage.waitUntil(visible, 15000);
     }
 
-    public void invalidCardMassage() {
+    public void waitInvalidCardMassage() {
         invalidCardMassage.waitUntil(visible, 15000);
     }
 
-    public void cardholderNameMassage() {
+    public void waitCardholderNameMassage() {
         cardholderNameMassage.waitUntil(visible, 15000);
     }
 }

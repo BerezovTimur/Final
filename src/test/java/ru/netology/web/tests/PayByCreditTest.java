@@ -44,7 +44,7 @@ public class PayByCreditTest {
             String cvv = DataHelper.getCvv();
             orderPage.setCreditPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
             orderPage.getSuccessMessage();
-            val status = SQLHelper.getStatusPayment();
+            val status = SQLHelper.getStatusCredit();
             assertEquals("APPROVED", status);
         }
 
@@ -57,7 +57,7 @@ public class PayByCreditTest {
             String cvv = DataHelper.getCvv();
             orderPage.setCreditPayment(DataHelper.getDeclinedCard(), month, year, cardholder, cvv);
             orderPage.getErrorMessage();
-            val status = SQLHelper.getStatusPayment();
+            val status = SQLHelper.getStatusCredit();
             assertEquals("DECLINED", status);
         }
 
@@ -70,7 +70,7 @@ public class PayByCreditTest {
             String cvv = DataHelper.getCvv();
             orderPage.setCreditPayment(DataHelper.getAnotherBankCard(), month, year, cardholder, cvv);
             orderPage.getErrorMessage();
-            val status = SQLHelper.getStatusPayment();
+            val status = SQLHelper.getStatusCredit();
             assertEquals("DECLINED", status);
         }
     }

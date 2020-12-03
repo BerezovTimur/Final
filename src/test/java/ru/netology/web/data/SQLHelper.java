@@ -48,4 +48,21 @@ public class SQLHelper {
         return null;
     }
 
+    public static String getStatusCredit() {
+        val request = "SELECT status FROM credit_request_entity ORDER BY created DESC LIMIT 1;";
+        try (
+                val connect = DriverManager.getConnection(url, login, password);
+                val createStmt = connect.createStatement();
+        ) {
+            try (val resultSet = createStmt.executeQuery(request)) {
+                if (resultSet.next()) {
+                    val status = resultSet.getString(1);
+                    return status;
+                }
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        return null;
+    }
 }

@@ -8,7 +8,8 @@ import java.sql.SQLException;
 
 public class SQLHelper {
 
-    public static String url = "jdbc:mysql://192.168.99.100:3306/app";
+    //public static String url = "jdbc:mysql://192.168.99.100:3306/app";
+    public static String url = System.getProperty("db.url");
     public static String login = "app";
     public static String password = "pass";
 

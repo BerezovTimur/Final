@@ -11,18 +11,13 @@ services:
       - MYSQL_DATABASE=app
       - MYSQL_USER=app
       - MYSQL_PASSWORD=pass
-  postgresql:
-    image: postgres:latest
+  postgres:
+    image: postgres:12.0-alpine
+    environment:
+      - POSTGRES_USER=app
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=postgres
     ports:
       - '5432:5432'
     volumes:
       - ./data:/var/lib/postgresql
-    environment:
-      - POSTGRES_DB=app
-      - POSTGRES_USER=app
-      - POSTGRES_PASSWORD=pass
-  node-app:
-    build: gate-simulator
-    image: node-app:1.0
-    ports:
-      - '9999:9999'

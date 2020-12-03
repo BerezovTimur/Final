@@ -1,5 +1,4 @@
 <h2>Тестирование сервиса "Бронирование тура".</h2>
-
 В данном проекте реализована автоматизация тестирования сервиса бронирования тура в Марракеш.
 План автоматизации можно просмотреть по следующей ссылке https://github.com/BerezovTimur/Final/blob/master/documentation/Plan.md
 
@@ -15,23 +14,19 @@
 
 Скопировать проект через GIT на свой ПК командой: git clone https://github.com/BerezovTimur/Final.git
 
-<h3>Установка и запуск сборки на MySQL</h3>
+<h3>Установка и запуск сборки</h3>
 
 1. Запустить контейнеры Docker командой: `docker-compose up -d`
-3. Запускаем симулятор банковских сервисов:
+2. Запускаем симулятор банковских сервисов:
     - `cd gate-simulator && npm start`
-5. Запускаем приложение командой: `java -jar artifacts/aqa-shop.jar`
-6. Запускаем тесты: `gradlew clean test`
-7. Для повторного использования тестов необходимо перезапустить SUT
-
-<h3>Установка и запуск сборки на PostgreSQL</h3>
-
-1. Переключится на ветку postgre командой:
-    `git checkout postgre`
-2. Запустить контейнеры Docker командой: `docker-compose up`
-3.
-4. Запускаем симулятор банковских сервисов:
-    - `cd gate-simulator && npm start`
-5. Запускаем приложение командой: `java -jar artifacts/aqa-shop.jar`
-6. Запускаем тесты: `gradlew clean test`
-7. Для повторного использования тестов необходимо перезапустить SUT
+3. Запускаем приложение командой: 
+     - для mysql:
+`java -Dspring.datasource.url=jdbc:mysql://192.168.99.100:3306/app -jar artifacts/aqa-shop.jar`
+     - для postrgre:
+ `java -Dspring.datasource.url=jdbc:postgresql://192.168.99.100:5432/postgres -jar artifacts/aqa-shop.jar`
+4. Запускаем тесты:
+     - для mysql:
+ `gradlew test -Ddb.url=jdbc:mysql://192.168.99.100:3306/app -Dlogin=app -Dpassword=pass -Dapp.url=http://localhost:8080`
+     - для postrgre:
+ `gradlew test -Ddb.url=jdbc:postgresql://192.168.99.100:3306:5432/postgres -Dlogin=app -Dpassword=pass -Dapp.url=http://localhost:8080`
+ 

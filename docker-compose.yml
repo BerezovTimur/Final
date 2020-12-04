@@ -21,3 +21,8 @@ services:
       - '5432:5432'
     volumes:
       - ./data:/var/lib/postgresql
+  node-app:
+    build: gate-simulator/
+    image: node-app:1.0
+    ports:
+      - '9999:9999'

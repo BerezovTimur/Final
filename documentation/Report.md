@@ -9,4 +9,8 @@
   - 85.36% тест-кейсов прошли успешно;
   - 16,64% тестов не прошли.
   
-![alt text](pic/screen1.jpg)
+![alt text](https://github.com/BerezovTimur/Final/blob/master/pic/screen1.jpg?raw=true)
+
+![alt text](https://github.com/BerezovTimur/Final/blob/master/pic/screen2.jpg?raw=true)
+
+В ходе тестирования обнаружено 7 ошибок (шаги по их воспроизведению указаны в Issue).

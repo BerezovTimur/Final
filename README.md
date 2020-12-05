@@ -1,6 +1,10 @@
 <h2>Тестирование сервиса "Бронирование тура".</h2>
 В данном проекте реализована автоматизация тестирования сервиса бронирования тура в Марракеш.
-План автоматизации можно просмотреть по следующей ссылке https://github.com/BerezovTimur/Final/blob/master/documentation/Plan.md
+
+<h3>Документация:</h3>
+ - План автоматизации: https://github.com/BerezovTimur/Final/blob/master/documentation/Plan.md
+ - Отчет по автоматизации: https://github.com/BerezovTimur/Final/blob/master/documentation/Report.md
+ - Саммари:
 
 <h3>Необходимый инструментарий</h3>
 Убедитесь, что на вашем ПК установлены или установите:

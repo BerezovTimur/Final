@@ -37,27 +37,27 @@ public class PayByCardTest {
     public class PositiveTest {
 
         @Test
-        void shouldBuyIfApprovedCard() {
+        void shouldBuyIfApprovedCard() throws InterruptedException {
             OrderPage orderPage = new OrderPage();
             String month = DataHelper.getCurrentMonth();
             String year = DataHelper.getCurrentYear();
             String cardholder = DataHelper.getCardholder();
             String cvv = DataHelper.getCvv();
             orderPage.setPayment(DataHelper.getApprovedCard(), month, year, cardholder, cvv);
-            orderPage.getSuccessMessage();
+            Thread.sleep(15000);
             val status = SQLHelper.getStatusPayment();
             assertEquals("APPROVED", status);
         }
 
         @Test
-        void shouldNotBuyIfDeclinedCard() {
+        void shouldNotBuyIfDeclinedCard() throws InterruptedException {
             OrderPage orderPage = new OrderPage();
             String month = DataHelper.getCurrentMonth();
             String year = DataHelper.getCurrentYear();
             String cardholder = DataHelper.getCardholder();
             String cvv = DataHelper.getCvv();
             orderPage.setPayment(DataHelper.getDeclinedCard(), month, year, cardholder, cvv);
-            orderPage.getErrorMessage();
+            Thread.sleep(15000);
             val status = SQLHelper.getStatusPayment();
             assertEquals("DECLINED", status);
         }
@@ -71,8 +71,6 @@ public class PayByCardTest {
             String cvv = DataHelper.getCvv();
             orderPage.setPayment(DataHelper.getAnotherBankCard(), month, year, cardholder, cvv);
             orderPage.getSuccessMessage();
-            val status = SQLHelper.getStatusPayment();
-            assertEquals("APPROVED", status);
         }
     }
 

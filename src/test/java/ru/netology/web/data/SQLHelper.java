@@ -8,8 +8,8 @@ import java.sql.SQLException;
 
 public class SQLHelper {
 
-    //public static String url = "jdbc:mysql://192.168.99.100:3306/app";
-    public static String url = System.getProperty("db.url");
+    public static String url = "jdbc:mysql://192.168.99.100:3306/app";
+    //public static String url = "jdbc:postgresql://192.168.99.100:3306:5432/postgres";
     public static String login = "app";
     public static String password = "pass";
 
@@ -27,7 +27,7 @@ public class SQLHelper {
             runner.update(connection, debitPayment);
 
         } catch (SQLException ex) {
-            System.out.println("SQLException message:" + ex.getMessage());
+            System.out.println("SQLException message: " + ex.getMessage());
         }
     }
 

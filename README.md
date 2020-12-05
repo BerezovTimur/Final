@@ -17,16 +17,16 @@
 <h3>Установка и запуск сборки</h3>
 
 1. Запустить контейнеры Docker командой: `docker-compose up -d`
-2. Запускаем симулятор банковских сервисов:
-    - `cd gate-simulator && npm start`
-3. Запускаем приложение командой: 
+2. Запускаем приложение командой: 
      - для mysql:
 `java -Dspring.datasource.url=jdbc:mysql://192.168.99.100:3306/app -jar artifacts/aqa-shop.jar`
      - для postrgre:
  `java -Dspring.datasource.url=jdbc:postgresql://192.168.99.100:5432/postgres -jar artifacts/aqa-shop.jar`
-4. Запускаем тесты:
+3. Запускаем тесты:
      - для mysql:
- `gradlew test -Ddb.url=jdbc:mysql://192.168.99.100:3306/app -Dlogin=app -Dpassword=pass -Dapp.url=http://localhost:8080`
+       - в SQLHelper устанавливаем public static String url = "jdbc:mysql://192.168.99.100:3306/app"; 
+       - `gradlew test -Ddb.url=jdbc:mysql://192.168.99.100:3306/app -Dlogin=app -Dpassword=pass -Dapp.url=http://localhost:8080`
      - для postrgre:
- `gradlew test -Ddb.url=jdbc:postgresql://192.168.99.100:3306:5432/postgres -Dlogin=app -Dpassword=pass -Dapp.url=http://localhost:8080`
+       - в SQLHelper устанавливаем public static String url = "jdbc:postgresql://192.168.99.100:3306:5432/postgres";
+       - `gradlew test -Ddb.url=jdbc:postgresql://192.168.99.100:3306:5432/postgres -Dlogin=app -Dpassword=pass -Dapp.url=http://localhost:8080`
  

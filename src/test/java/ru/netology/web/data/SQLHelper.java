@@ -8,10 +8,9 @@ import java.sql.SQLException;
 
 public class SQLHelper {
 
-    public static String url = "jdbc:mysql://192.168.99.100:3306/app";
-    //public static String url = "jdbc:postgresql://192.168.99.100:3306:5432/postgres";
-    public static String login = "app";
-    public static String password = "pass";
+    private static String url = System.getProperty("db.url");
+    private static String login = System.getProperty("db.user");
+    private static String password = System.getProperty("password");
 
     public static void cleanData() {
         val runner = new QueryRunner();

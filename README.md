@@ -28,9 +28,7 @@
  `java -Dspring.datasource.url=jdbc:postgresql://192.168.99.100:5432/postgres -jar artifacts/aqa-shop.jar`
 3. Запускаем тесты:
      - для mysql:
-       - в SQLHelper устанавливаем public static String url = "jdbc:mysql://192.168.99.100:3306/app"; 
        - `gradlew test -Ddb.url=jdbc:mysql://192.168.99.100:3306/app -Dlogin=app -Dpassword=pass -Dapp.url=http://localhost:8080`
      - для postrgre:
-       - в SQLHelper устанавливаем public static String url = "jdbc:postgresql://192.168.99.100:3306:5432/postgres";
        - `gradlew test -Ddb.url=jdbc:postgresql://192.168.99.100:3306:5432/postgres -Dlogin=app -Dpassword=pass -Dapp.url=http://localhost:8080`
  
